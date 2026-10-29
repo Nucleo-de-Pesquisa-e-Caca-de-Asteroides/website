@@ -1,6 +1,7 @@
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import "./globals.css";
+import "./npca-theme.css";
 
 export const metadata = {
   title: "NPCA — Núcleo de Pesquisa e Caça de Asteroides",

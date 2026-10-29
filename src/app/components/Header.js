@@ -2,9 +2,11 @@
 
 import { ListIcon, XIcon } from "@phosphor-icons/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 function Header() {
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const links = [
     ["Início", "/"],
@@ -25,13 +27,14 @@ function Header() {
         className="mobile"
         aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
         aria-expanded={isMenuOpen}
+        aria-controls="npca-navigation"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         {isMenuOpen ? <XIcon /> : <ListIcon />}
       </button>
-      <nav className={isMenuOpen ? "open" : ""}>
+      <nav id="npca-navigation" aria-label="Navegação principal" className={isMenuOpen ? "open" : ""}>
         {links.map(([label, href]) => (
-          <Link key={label} href={href} onClick={() => setIsMenuOpen(false)}>
+          <Link key={label} href={href} aria-current={(href === "/" ? pathname === href : pathname.startsWith(href)) ? "page" : undefined} onClick={() => setIsMenuOpen(false)}>
             {label}
           </Link>
         ))}
